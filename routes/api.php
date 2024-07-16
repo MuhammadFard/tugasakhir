@@ -31,14 +31,14 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
 Route::post('password/reset', [ResetPasswordController::class, 'reset']);
 
-
+Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+    
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
-    Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
     Route::get('/user/profile', [UserProfileController::class, 'show']);
     Route::post('/user/profile', [UserProfileController::class, 'update']);    
-    // Route::apiResource('user/profile', [UserProfileController::class, ]);
+    
     Route::middleware('verified')->group(function () {
         Route::apiResource('rawat-inap', RawatInapController::class);
         Route::apiResource('rekap-data', RekapDataController::class);
