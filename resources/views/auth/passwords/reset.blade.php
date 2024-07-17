@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Reset Password') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
+                    <form method="POST" id="resetPasswordForm">
                         @csrf
 
                         <input type="hidden" name="token" value="{{ $token }}">
@@ -62,27 +62,47 @@
         </div>
     </div>
 </div>
-    @section('scripts')
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.querySelector('form');
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            axios.post(form.action, new FormData(form))
-                .then(response => {
-                    showSuccessPopup('Password reset successful!', '{{ route('login') }}');
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'An error occurred. Please try again.',
-                        confirmButtonColor: '#0B6623'
-                    });
-                });
+@endsection
+
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('resetPasswordForm');
+    
+    function showSuccessPopup(message, redirectUrl) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: message,
+            confirmButtonColor: '#0B6623'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = redirectUrl;
+            }
         });
+    }
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        axios.post('/api/password/reset', new FormData(form))
+            .then(response => {
+                showSuccessPopup('Password reset successful!', '/login');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                let errorMessage = 'An error occurred. Please try again.';
+                if (error.response && error.response.data && error.response.data.message) {
+                    errorMessage = error.response.data.message;
+                }
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: errorMessage,
+                    confirmButtonColor: '#0B6623'
+                });
+            });
     });
-    </script>
-    @endsection
+});
+</script>
 @endsection
