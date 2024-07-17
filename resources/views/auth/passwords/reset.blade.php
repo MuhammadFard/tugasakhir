@@ -62,28 +62,27 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('form');
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        axios.post(form.action, new FormData(form))
-            .then(response => {
-                showSuccessPopup('Password reset successful!', '{{ route('login') }}');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'An error occurred. Please try again.',
-                    confirmButtonColor: '#0B6623'
+    @section('scripts')
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            axios.post(form.action, new FormData(form))
+                .then(response => {
+                    showSuccessPopup('Password reset successful!', '{{ route('login') }}');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'An error occurred. Please try again.',
+                        confirmButtonColor: '#0B6623'
+                    });
                 });
-            });
+        });
     });
-});
-</script>
+    </script>
+    @endsection
 @endsection
