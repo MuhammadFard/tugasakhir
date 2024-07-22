@@ -27,9 +27,9 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 Route::get('/', function () {
     return redirect()->route('login');
 });
-   
 
-Auth::routes(['verify' => true]);
+// Remove the email verification routes from Auth::routes
+Auth::routes(['verify' => false]);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -47,3 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 });
 
+// Add the email verification routes here
+Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
