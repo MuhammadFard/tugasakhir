@@ -11,6 +11,7 @@
                 <th>Tanggal Keluar</th>
                 <th>Nama Petugas</th>
                 <th>No. Pol</th>
+                <th>Lokasi</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -21,6 +22,7 @@
                 <td>{{ $rawatInap->tanggal_keluar }}</td>
                 <td>{{ $rawatInap->nama_petugas }}</td>
                 <td>{{ $rawatInap->no_pol }}</td>
+                <td>{{ $rekapData->lokasi }}</td>
                 <td>
                     <form action="{{ route('rawat-inap.destroy', $rawatInap->id) }}" method="POST">
                         @csrf
@@ -40,6 +42,7 @@
                 <th>Tanggal Masuk</th>
                 <th>Nama Petugas</th>
                 <th>No. Pol</th>
+                <th>Lokasi</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -49,6 +52,7 @@
                 <td>{{ $titipKunci->tanggal_masuk }}</td>
                 <td>{{ $titipKunci->nama_petugas }}</td>
                 <td>{{ $titipKunci->no_pol }}</td>
+                <td>{{ $rekapData->lokasi }}</td>
                 <td>
                     <form action="{{ route('titip-kunci.destroy', $titipKunci->id) }}" method="POST">
                         @csrf

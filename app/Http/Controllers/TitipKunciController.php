@@ -12,8 +12,8 @@ class TitipKunciController extends Controller
 {
     public function index()
     {
-        $titipKuncis = TitipKunci::all();
-        return Response::json($titipKuncis, 200);
+        $titipKunci = TitipKunci::all();
+        return Response::json($titipKunci, 200);
     }
 
     public function create()
@@ -26,6 +26,7 @@ class TitipKunciController extends Controller
         $validatedData = $request->validate([
             'no_pol' => 'required|string|max:255',
             'nama_petugas' => 'required|string|max:255',
+            'lokasi' => 'required|string|max:255',
         ]);
 
         try {
@@ -35,10 +36,11 @@ class TitipKunciController extends Controller
             $titipKunci->tanggal_masuk = now();
             $titipKunci->no_pol = $request->no_pol;
             $titipKunci->nama_petugas = auth() -> user() -> username;
+            $titipKunci->lokasi = $request -> lokasi;
             $titipKunci->save();
 
             $rekapData = new RekapData();
-            $rekapData->id_titipKunci = $titipKunci->id; // Perbaiki nama kolom
+            $rekapData->id_titipKunci = $titipKunci->id;
             $rekapData->save();
 
             DB::commit();
@@ -65,6 +67,7 @@ class TitipKunciController extends Controller
         $validatedData = $request->validate([
             'no_pol' => 'required|string|max:255',
             'nama_petugas' => 'required|string|max:255',
+            'lokasi' => 'required|string|max:255',
         ]);
 
         $titipKunci->update($validatedData);

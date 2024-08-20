@@ -16,6 +16,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -51,9 +52,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/user/profile', [UserProfileController::class, 'update']);
         Route::put('/users/{userId}/change-role', [UserProfileController::class, 'changeUserRole']);
         Route::delete('/users/{userId}', [UserProfileController::class, 'deleteUser']);
-    
-        Route::apiResource('rawat-inap', RawatInapController::class);
-        Route::apiResource('rekap-data', RekapDataController::class);
-        Route::apiResource('titip-kunci', TitipKunciController::class);
     });
+    Route::apiResource('rawat-inap', RawatInapController::class);
+    Route::apiResource('rekap-data', RekapDataController::class);
+    Route::apiResource('titip-kunci', TitipKunciController::class);
+    Route::get('/refresh-token', [AuthController::class, 'refreshToken']);
 });

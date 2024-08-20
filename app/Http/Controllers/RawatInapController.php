@@ -39,7 +39,7 @@ class RawatInapController extends Controller
             $rawatInap->save();
 
             $rekapData = new RekapData();
-            $rekapData->id_rawatInap = $rawatInap->id; // Sesuaikan dengan nama kolom yang benar
+            $rekapData->id_rawatInap = $rawatInap->id;
             $rekapData->save();
 
             DB::commit();

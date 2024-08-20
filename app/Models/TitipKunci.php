@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TitipKunci extends Model
 {
     protected $table = 'titip_kunci';
-    protected $fillable = ['tanggal_masuk', 'no_pol', 'nama_petugas'];
+    protected $fillable = ['tanggal_masuk', 'no_pol', 'nama_petugas', 'lokasi'];
 
     public function user()
     {

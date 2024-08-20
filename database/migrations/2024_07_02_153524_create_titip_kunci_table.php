@@ -16,6 +16,7 @@ return new class extends Migration
             $table->dateTime('tanggal_masuk')->useCurrent();
             $table->string('no_pol');
             $table->string('nama_petugas');
+            $table->string('lokasi')->nullable();
             $table->timestamps();
         });
         
